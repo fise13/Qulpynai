@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @Environment(CartManager.self) private var cartManager
     @Environment(OrderManager.self) private var orderManager
+    @Environment(AdminStore.self) private var adminStore
     @Environment(\.appEnvironment) private var appEnv
     @State private var featuredProducts: [Product] = []
     @State private var quickReorderItems: [CartItem] = []
@@ -35,7 +36,7 @@ struct HomeView: View {
                 .navigationDestination(for: Product.self) { product in
                     ProductDetailView(product: product)
                 }
-                .task {
+                .task(id: adminStore.useAdminData) {
                     await loadData()
                 }
         }
@@ -62,6 +63,7 @@ struct HomeView: View {
                                         HomeProductCard(
                                             name: String(localized: String.LocalizationValue(product.nameKey)),
                                             price: product.priceFormatted,
+                                            imageURL: product.imageURL,
                                             placeholderName: product.placeholderIcon
                                         )
                                     }
@@ -113,16 +115,17 @@ struct HomeView: View {
     }
 
     private var promoBanner: some View {
-        HStack(spacing: DSSpacing.md) {
+        let banner = adminStore.useAdminData ? adminStore.promoBanner : AdminPromoBanner(title: "20% на первый заказ", subtitle: "Используйте код WELCOME20 при оформлении", code: "WELCOME20")
+        return HStack(spacing: DSSpacing.md) {
             Image(systemName: "tag.fill")
                 .font(.title2)
                 .foregroundStyle(.white)
 
             VStack(alignment: .leading, spacing: 4) {
-                Text("20% на первый заказ")
+                Text(banner.title)
                     .font(DSTypography.title)
                     .foregroundStyle(.white)
-                Text("Используйте код WELCOME20 при оформлении")
+                Text(banner.subtitle)
                     .font(DSTypography.caption)
                     .foregroundStyle(.white.opacity(0.95))
             }
@@ -147,6 +150,14 @@ struct HomeView: View {
     }
 
     private func loadData() async {
+        if adminStore.useAdminData {
+            await MainActor.run {
+                featuredProducts = adminStore.featuredProducts
+                quickReorderItems = []
+            }
+            isLoading = false
+            return
+        }
         guard let env = appEnv else { return }
         isLoading = true
         do {
@@ -171,19 +182,34 @@ struct HomeView: View {
 private struct HomeProductCard: View {
     let name: String
     let price: String
+    var imageURL: String? = nil
     let placeholderName: String
 
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: DSSpacing.sm) {
-            Image(systemName: placeholderName)
-                .font(.system(size: 40))
-                .foregroundStyle(DSColors.secondary(theme: colorScheme))
-                .frame(maxWidth: .infinity)
-                .frame(height: 100)
-                .background(DSColors.surfaceVariant(theme: colorScheme))
-                .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.medium))
+            Group {
+                if let urlString = imageURL, let url = URL(string: urlString) {
+                    AsyncImage(url: url) { phase in
+                        switch phase {
+                        case .success(let img): img.resizable().scaledToFill()
+                        default:
+                            Image(systemName: placeholderName)
+                                .font(.system(size: 40))
+                                .foregroundStyle(DSColors.secondary(theme: colorScheme))
+                        }
+                    }
+                } else {
+                    Image(systemName: placeholderName)
+                        .font(.system(size: 40))
+                        .foregroundStyle(DSColors.secondary(theme: colorScheme))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 100)
+            .background(DSColors.surfaceVariant(theme: colorScheme))
+            .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.medium))
 
             Text(name)
                 .font(DSTypography.title)

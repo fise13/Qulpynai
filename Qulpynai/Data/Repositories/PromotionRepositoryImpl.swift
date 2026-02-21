@@ -6,8 +6,16 @@
 import Foundation
 
 struct PromotionRepositoryImpl: PromotionRepositoryProtocol {
+    private let adminStore: AdminStore?
+
+    init(adminStore: AdminStore? = nil) {
+        self.adminStore = adminStore
+    }
+
     func fetchPromotion(code: String) async throws -> Promotion? {
-        // Mock: Single promo code for MVP
+        if let promo = adminStore?.promotion(for: code) {
+            return promo
+        }
         guard code.uppercased() == "WELCOME10" else { return nil }
         return Promotion(
             id: "p1",

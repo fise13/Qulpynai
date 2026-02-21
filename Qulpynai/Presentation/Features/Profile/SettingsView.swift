@@ -17,6 +17,35 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: DSSpacing.xl) {
+                sectionHeader("Тестировщик / Админ")
+
+                settingsCard {
+                    NavigationLink {
+                        AdminDashboardView()
+                    } label: {
+                        HStack(spacing: DSSpacing.md) {
+                            Image(systemName: "wrench.and.screwdriver.fill")
+                                .font(.title3)
+                                .foregroundStyle(DSColors.secondary(theme: colorScheme))
+                                .frame(width: 24, alignment: .center)
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Панель администратора")
+                                    .font(DSTypography.body)
+                                    .foregroundStyle(DSColors.textPrimary(theme: colorScheme))
+                                Text("Меню, каталог, главная, адреса")
+                                    .font(DSTypography.caption)
+                                    .foregroundStyle(DSColors.textSecondary(theme: colorScheme))
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(DSColors.textTertiary(theme: colorScheme))
+                        }
+                        .padding(DSSpacing.md)
+                    }
+                    .buttonStyle(.plain)
+                }
+
                 sectionHeader("Уведомления")
 
                 settingsCard {

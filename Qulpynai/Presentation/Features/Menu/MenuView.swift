@@ -18,6 +18,7 @@ struct MenuView: View {
     @State private var isLoading = false
     @State private var loadError: String?
 
+    @Environment(AdminStore.self) private var adminStore
     @Environment(\.colorScheme) private var colorScheme
 
     private var filteredProducts: [Product] {
@@ -98,7 +99,7 @@ struct MenuView: View {
                     CartButton()
                 }
             }
-            .task {
+            .task(id: adminStore.useAdminData) {
                 await loadMenu()
             }
             .refreshable {

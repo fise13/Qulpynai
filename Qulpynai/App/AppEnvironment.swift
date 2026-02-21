@@ -13,6 +13,7 @@ final class AppEnvironment {
 
     // State
     let appState: AppState
+    let adminStore: AdminStore
     let authManager: AuthManager
     let cartManager: CartManager
     let orderManager: OrderManager
@@ -47,12 +48,13 @@ final class AppEnvironment {
             ? MockAPIClient(delay: config.mockDelay)
             : RealAPIClient(baseURL: config.baseURL, tokenStore: tokenStore)
 
-        let menuRepository = MenuRepositoryImpl(apiClient: apiClient)
+        let adminStore = AdminStore()
+        let menuRepository = MenuRepositoryImpl(apiClient: apiClient, adminStore: adminStore)
         let authRepository = AuthRepositoryImpl(apiClient: apiClient)
         let orderRepository = OrderRepositoryImpl(apiClient: apiClient)
         let loyaltyRepository = LoyaltyRepositoryImpl(apiClient: apiClient)
-        let locationRepository = LocationRepositoryImpl(apiClient: apiClient)
-        let promotionRepository = PromotionRepositoryImpl()
+        let locationRepository = LocationRepositoryImpl(apiClient: apiClient, adminStore: adminStore)
+        let promotionRepository = PromotionRepositoryImpl(adminStore: adminStore)
 
         paymentProcessor = MockPaymentProcessor(delay: config.mockDelay)
 
@@ -75,6 +77,7 @@ final class AppEnvironment {
         authManager.restoreSession()
 
         self.appState = appState
+        self.adminStore = adminStore
         self.loyaltyManager = loyaltyManager
         self.globalUXState = globalUXState
         self.authManager = authManager

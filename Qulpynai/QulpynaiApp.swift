@@ -19,6 +19,7 @@ struct QulpynaiApp: App {
                 .environment(appEnvironment.authManager)
                 .environment(appEnvironment.orderManager)
                 .environment(appEnvironment.appState)
+                .environment(appEnvironment.adminStore)
                 .environment(appEnvironment.globalUXState)
         }
     }
