@@ -2,55 +2,55 @@
 //  Colors.swift
 //  Qulpynai
 //
-//  Design system color tokens — bakery/coffee warm minimal palette
+//  Design system — dark artisan bakery palette
 //
 
 import SwiftUI
 
 enum DSColors {
-    // MARK: - Brand
+    // MARK: - Brand (warm terracotta / amber)
 
-    static let primary = Color(hex: "2C1810")
-    static let primaryLight = Color(hex: "E8D5C4")
+    static let primary = Color(hex: "1C1917")
+    static let primaryLight = Color(hex: "FEF3C7")
 
-    static let secondary = Color(hex: "8B6914")
-    static let secondaryLight = Color(hex: "D4A84B")
+    static let secondary = Color(hex: "D97706")
+    static let secondaryLight = Color(hex: "FCD34D")
 
-    static let accent = Color(hex: "C4A77D")
-    static let accentLight = Color(hex: "A68B5B")
+    static let accent = Color(hex: "B45309")
+    static let accentLight = Color(hex: "F59E0B")
 
     // MARK: - Background & Surface
 
-    static let background = Color(hex: "FFFBF7")
-    static let backgroundDark = Color(hex: "1A1512")
+    static let background = Color(hex: "FFFBEB")
+    static let backgroundDark = Color(hex: "0F0D0B")
 
     static let surface = Color(hex: "FFFFFF")
-    static let surfaceDark = Color(hex: "2C2420")
+    static let surfaceDark = Color(hex: "292524")
 
-    static let surfaceVariant = Color(hex: "F5EFE8")
-    static let surfaceVariantDark = Color(hex: "3D342E")
+    static let surfaceVariant = Color(hex: "FEF3C7")
+    static let surfaceVariantDark = Color(hex: "44403C")
 
     // MARK: - Text
 
-    static let textPrimary = Color(hex: "1A1512")
-    static let textPrimaryLight = Color(hex: "FFFBF7")
+    static let textPrimary = Color(hex: "1C1917")
+    static let textPrimaryLight = Color(hex: "FAFAF9")
 
-    static let textSecondary = Color(hex: "6B5B52")
-    static let textSecondaryLight = Color(hex: "B8A99A")
+    static let textSecondary = Color(hex: "57534E")
+    static let textSecondaryLight = Color(hex: "A8A29E")
 
-    static let textTertiary = Color(hex: "9E8F84")
-    static let textTertiaryLight = Color(hex: "7A6F65")
+    static let textTertiary = Color(hex: "78716C")
+    static let textTertiaryLight = Color(hex: "78716C")
 
     // MARK: - Semantic
 
-    static let error = Color(hex: "C62828")
-    static let errorLight = Color(hex: "EF5350")
+    static let error = Color(hex: "DC2626")
+    static let errorLight = Color(hex: "FCA5A5")
 
-    static let success = Color(hex: "2E7D32")
-    static let successLight = Color(hex: "66BB6A")
+    static let success = Color(hex: "059669")
+    static let successLight = Color(hex: "34D399")
 
-    static let divider = Color(hex: "E5DFD8")
-    static let dividerDark = Color(hex: "4A4039")
+    static let divider = Color(hex: "E7E5E4")
+    static let dividerDark = Color(hex: "44403C")
 }
 
 // MARK: - Adaptive Colors

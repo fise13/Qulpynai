@@ -31,6 +31,7 @@ struct SplashView: View {
                             endPoint: .bottomTrailing
                         )
                     )
+                    .shadow(color: DSColors.secondary(theme: colorScheme).opacity(0.3), radius: 20)
                     .scaleEffect(logoScale)
                     .opacity(logoOpacity)
 

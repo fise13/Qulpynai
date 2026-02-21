@@ -10,12 +10,12 @@ import SwiftUI
 private enum Tab: Int, CaseIterable {
     case home, menu, orders, profile
 
-    var title: LocalizedStringKey {
+    var title: String {
         switch self {
-        case .home: return "Home"
-        case .menu: return "Menu"
-        case .orders: return "Orders"
-        case .profile: return "Profile"
+        case .home: return "Главная"
+        case .menu: return "Меню"
+        case .orders: return "Заказы"
+        case .profile: return "Профиль"
         }
     }
 
@@ -70,11 +70,14 @@ private struct CustomTabBar: View {
                 tabButton(tab)
             }
         }
-        .padding(.horizontal, DSSpacing.sm)
+        .padding(.horizontal, DSSpacing.md)
         .padding(.vertical, DSSpacing.sm)
-        .background(
-            DSColors.surface(theme: colorScheme)
-                .shadow(color: .black.opacity(0.06), radius: 12, y: -4)
+        .background(DSColors.surface(theme: colorScheme))
+        .overlay(
+            Rectangle()
+                .fill(DSColors.divider(theme: colorScheme))
+                .frame(height: 1),
+            alignment: .top
         )
     }
 
@@ -85,15 +88,15 @@ private struct CustomTabBar: View {
                 selectedTab = tab.rawValue
             }
         } label: {
-            VStack(spacing: DSSpacing.xs) {
+            VStack(spacing: 6) {
                 Image(systemName: tab.icon)
-                    .font(.system(size: 20, weight: isSelected ? .semibold : .regular))
+                    .font(.system(size: 22, weight: isSelected ? .bold : .medium))
                 Text(tab.title)
-                    .font(DSTypography.caption)
+                    .font(.system(size: 11, weight: isSelected ? .semibold : .regular))
             }
             .frame(maxWidth: .infinity)
             .foregroundStyle(isSelected ? DSColors.secondary(theme: colorScheme) : DSColors.textTertiary(theme: colorScheme))
         }
-        .buttonStyle(.plain)
+        .buttonStyle(ScaleButtonStyle())
     }
 }

@@ -2,27 +2,27 @@
 //  Typography.swift
 //  Qulpynai
 //
-//  Design system typography scale — San Francisco system font
+//  Design system — serif headlines, crisp body
 //
 
 import SwiftUI
 
 enum DSTypography {
-    // MARK: - Display & Headlines
+    // MARK: - Display & Headlines (serif)
 
-    static let display = Font.system(size: 34, weight: .bold)
-    static let headline = Font.system(size: 28, weight: .semibold)
-    static let subheadline = Font.system(size: 22, weight: .semibold)
+    static let display = Font.system(size: 36, weight: .bold, design: .serif)
+    static let headline = Font.system(size: 26, weight: .semibold, design: .serif)
+    static let subheadline = Font.system(size: 20, weight: .semibold)
     static let title = Font.system(size: 17, weight: .semibold)
 
     // MARK: - Body
 
-    static let body = Font.system(size: 17, weight: .regular)
-    static let bodySmall = Font.system(size: 15, weight: .regular)
+    static let body = Font.system(size: 16, weight: .regular)
+    static let bodySmall = Font.system(size: 14, weight: .regular)
 
     // MARK: - Caption
 
-    static let caption = Font.system(size: 13, weight: .regular)
+    static let caption = Font.system(size: 13, weight: .medium)
     static let captionSmall = Font.system(size: 11, weight: .medium)
 }
 

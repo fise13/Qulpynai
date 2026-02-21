@@ -13,7 +13,7 @@ struct DSProductCard: View {
     var imageURL: String? = nil
     var placeholderName: String = "cup.and.saucer.fill"
     var style: Style = .grid
-    let action: () -> Void
+    var action: (() -> Void)? = nil
 
     enum Style {
         case grid
@@ -23,14 +23,23 @@ struct DSProductCard: View {
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
-        Button(action: action) {
-            if style == .grid {
-                gridLayout
+        Group {
+            if let action {
+                Button(action: action) { cardContent }
+                    .buttonStyle(ScaleButtonStyle())
             } else {
-                listLayout
+                cardContent
             }
         }
-        .buttonStyle(.plain)
+    }
+
+    @ViewBuilder
+    private var cardContent: some View {
+        if style == .grid {
+            gridLayout
+        } else {
+            listLayout
+        }
     }
 
     private var gridLayout: some View {
@@ -53,7 +62,7 @@ struct DSProductCard: View {
         .padding(DSSpacing.md)
         .background(DSColors.surface(theme: colorScheme))
         .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.medium))
-        .shadow(color: .black.opacity(0.06), radius: 4, x: 0, y: 2)
+        .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
     }
 
     private var listLayout: some View {

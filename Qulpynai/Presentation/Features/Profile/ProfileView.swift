@@ -35,13 +35,28 @@ struct ProfileView: View {
                     }
 
                     VStack(spacing: 0) {
-                        profileRow(icon: "gearshape.fill", title: "Settings", color: DSColors.accent(theme: colorScheme))
+                        NavigationLink {
+                            SettingsView()
+                        } label: {
+                            profileRow(icon: "gearshape.fill", title: "Settings", color: DSColors.accent(theme: colorScheme))
+                        }
+                        .buttonStyle(.plain)
                         Divider()
                             .padding(.leading, 56)
-                        profileRow(icon: "bell.fill", title: "Notifications", color: DSColors.accent(theme: colorScheme))
+                        NavigationLink {
+                            NotificationsView()
+                        } label: {
+                            profileRow(icon: "bell.fill", title: "Notifications", color: DSColors.accent(theme: colorScheme))
+                        }
+                        .buttonStyle(.plain)
                         Divider()
                             .padding(.leading, 56)
-                        profileRow(icon: "questionmark.circle.fill", title: "Help", color: DSColors.accent(theme: colorScheme))
+                        NavigationLink {
+                            HelpView()
+                        } label: {
+                            profileRow(icon: "questionmark.circle.fill", title: "Help", color: DSColors.accent(theme: colorScheme))
+                        }
+                        .buttonStyle(.plain)
                     }
                     .background(DSColors.surface(theme: colorScheme))
                     .clipShape(RoundedRectangle(cornerRadius: DSCornerRadius.medium))
@@ -123,9 +138,6 @@ struct ProfileView: View {
                 .font(DSTypography.body)
                 .foregroundStyle(DSColors.textPrimary(theme: colorScheme))
             Spacer()
-            Image(systemName: "chevron.right")
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(DSColors.textTertiary(theme: colorScheme))
         }
         .padding(DSSpacing.md)
     }

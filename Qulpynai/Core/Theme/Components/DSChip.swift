@@ -21,7 +21,7 @@ struct DSChip: View {
                 .padding(.horizontal, DSSpacing.md)
                 .padding(.vertical, DSSpacing.sm)
                 .foregroundStyle(isSelected ? DSColors.surface : DSColors.textPrimary(theme: colorScheme))
-                .background(isSelected ? DSColors.primary(theme: colorScheme) : DSColors.surfaceVariant(theme: colorScheme))
+                .background(isSelected ? DSColors.secondary(theme: colorScheme) : DSColors.surfaceVariant(theme: colorScheme))
                 .clipShape(Capsule())
         }
         .buttonStyle(.plain)

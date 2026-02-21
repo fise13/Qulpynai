@@ -78,9 +78,8 @@ struct MenuView: View {
                                             imageURL: product.imageURL,
                                             placeholderName: product.placeholderIcon,
                                             style: .grid
-                                        ) {}
+                                        )
                                     }
-                                    .buttonStyle(ScaleButtonStyle())
                                     .disabled(product.isOutOfStock)
                                 }
                             }
