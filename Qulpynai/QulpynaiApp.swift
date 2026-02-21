@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
-import CoreData
 
 @main
 struct QulpynaiApp: App {
-    let persistenceController = PersistenceController.shared
+    @State private var appEnvironment = AppEnvironment()
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            RootView()
+                .environment(\.appEnvironment, appEnvironment)
+                .environment(appEnvironment.cartManager)
+                .environment(appEnvironment.authManager)
+                .environment(appEnvironment.orderManager)
+                .environment(appEnvironment.appState)
+                .environment(appEnvironment.globalUXState)
         }
     }
 }

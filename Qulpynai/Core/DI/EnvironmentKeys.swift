@@ -1,0 +1,17 @@
+//
+//  EnvironmentKeys.swift
+//  Qulpynai
+//
+
+import SwiftUI
+
+private struct AppEnvironmentKey: EnvironmentKey {
+    static let defaultValue: AppEnvironment? = nil
+}
+
+extension EnvironmentValues {
+    var appEnvironment: AppEnvironment? {
+        get { self[AppEnvironmentKey.self] }
+        set { self[AppEnvironmentKey.self] = newValue }
+    }
+}
